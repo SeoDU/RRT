@@ -17,16 +17,16 @@ The path can also expand to gradual increasing/decreasing hills.
 ## Prerequisites
 1. catkin simple
 
-'''
+```
 cd ~/catkin_ws/src
 git clone https://github.com/catkin/catkin_simple.git
-'''
+```
 
 2. Octomap
 
-'''
+```
 sudo apt-get install "ros-kinetic-octomap-*
-'''
+```
 
 
 ## Configuration
