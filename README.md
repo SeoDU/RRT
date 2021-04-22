@@ -2,7 +2,7 @@
 
 The original code is from https://github.com/mseln/aeplanner
 
-After creating several paths using RRT(Rapidly exploring Random Tree), The best path is selected.
+After creating several paths using RRT(Rapidly exploring Random Tree), The best path is selected.   
 Random samples are chosen within the known rectangular map.   
 The path can also expand to gradual increasing/decreasing hills.   
 
@@ -31,11 +31,11 @@ sudo apt-get install "ros-kinetic-octomap-*
 
 ## Configuration
 
-rrt/min_nodes: Iteration numbers of creating valid nodes.   
-system/bbx/r: The cylinder radius for detecting collision.   
-system/bbx/overshoot: Overshoot of the cylinder height for detecting collision.   
-tree/extension_range: Height of cylinder. (or node step length).   
-boundary/min , boundary/max : Only z value is meaningful. x,y ranges are set automatically.   
+ - rrt/min_nodes: Iteration numbers of creating valid nodes.   
+ - system/bbx/r: The cylinder radius for detecting collision.   
+ - system/bbx/overshoot: Overshoot of the cylinder height for detecting collision.   
+ - tree/extension_range: Height of cylinder. (or node step length).   
+ - boundary/min , boundary/max : Only z value is meaningful. x,y ranges are set automatically.   
 
 
 <img width="20%" src="https://user-images.githubusercontent.com/47074271/115719109-bf12fc80-a3b6-11eb-93cb-efcd59a27573.gif" />
