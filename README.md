@@ -2,9 +2,7 @@
 
 The original code is from https://github.com/mseln/aeplanner
 
-After creating several paths using RRT(Rapidly exploring Random Tree), The best path is selected.   
-Random samples are chosen within the known rectangular map.   
-The path can also expand to gradual increasing/decreasing hills.   
+After creating several paths using RRT(Rapidly exploring Random Tree), the best path is selected. Random samples are chosen within the known rectangular map. The path can also expand to gradual increasing/decreasing hills.   
 
 
 <img width="60%" src="https://user-images.githubusercontent.com/47074271/115717447-26c84800-a3b5-11eb-85da-ed947776eba0.png" />
