@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <arg name="param_file" default="$(find rrtplanner)/config/exploration.yaml" />
+  <node name="rrtplanner_node" pkg="rrtplanner" type="rrtplanner_node" output="screen">
+    <remap from="octomap" to="octomap_full"/>
+    <remap from="pmap" to="projected_map" />
+  </node>
+  <node name="rrtviz_node" pkg="rrtplanner" type="rrtviz_node" output="screen" />
+  <rosparam command="load" file="$(arg param_file)" />
+</launch>
