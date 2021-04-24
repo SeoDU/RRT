@@ -23,7 +23,7 @@ git clone https://github.com/catkin/catkin_simple.git
 2. Octomap
 
 ```
-sudo apt-get install "ros-kinetic-octomap-*
+sudo apt-get install ros-melodic-octomap-*
 ```
 
 
