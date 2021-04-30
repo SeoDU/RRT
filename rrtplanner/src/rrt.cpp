@@ -89,6 +89,15 @@ void Rrt::execute(const rrtplanner::rrtGoalConstPtr& goal)
     Eigen::Vector3d z_samp = sample(goal->start);
 
     // Get nearest neighbour
+
+    /* <현재 과정 코드>
+     * x,y plane으로 2차원으로 바꿔서 parent를 선택함.
+     * (3차원으로 z값의 차이로 인해 parent를 다른 것을 선택하는 것을 없애기 위해)
+     * 이후 다시 3차원으로 바꿔서 임의의 z값을 설정함. (parent 기준 -1 ~ +1)
+     * collisionLine에서 충돌검증을 할 때, unknown이면 octomap밖이라고 인식하는 문제 때문에
+     * 다음 위치를 바닥에 붙여서 검증을 하였는데, 이것으로 인해 허공으로 경로가 생성되지
+     * 않게 되는 장점을 갖게됨.
+    */
     kd_dimset(kd_tree,2);
     RrtNode* z_parent = chooseParent(kd_tree, z_samp, l);
     if (!z_parent)
@@ -98,12 +107,21 @@ void Rrt::execute(const rrtplanner::rrtGoalConstPtr& goal)
     z_samp[2] = (boundary_max_[2] - boundary_min_[2])
         * distr(eng) + boundary_min_[2] + z_parent->pos[2];
 
+
+    /* 만약 정해진 범위 내에서 z값을 정할 경우 이것을 uncomment하면 됩니다. */
+//    z_samp[2] = (boundary_max_[2] - boundary_min_[2])
+//        * distr(eng) + boundary_min_[2];
+    /* 또는 (현재 위치 기준에서만 z범위 지정) */
+//    x_samp[2] = (boundary_max_[2] - boundary_min_[2])
+//        * distr(eng) + boundary_min_[2] + goal->start.pose.position.z;
+
     // Calculate position for new node
     Eigen::Vector3d new_pos = getNewPos(z_samp, z_parent->pos, l);
 
 
     Eigen::Vector3d direction = new_pos - z_parent->pos;
 
+    /* 랜덤 샘플링 위치, parent, 새 위치를 visualization하는 코드 */
 //    visualizeSamp(z_samp,2000-i);
 //    visualizeParent(z_parent,5000-i);
 //    visualizeNew(new_pos,3000-i);
@@ -411,13 +429,12 @@ bool Rrt::collisionLine(Eigen::Vector3d p1, Eigen::Vector3d p2, double r)
   octomap::point3d dir_ceil(0,0,1);
 
   // Initialize 'z' as z of parent.
-  // If
   octomap::point3d query(p2[0], p2[1], p1[2]);
   if(ot->castRay(end, dir_floor, p2_g))
-    query.z() = p2_g.z();
+    query.z() = p2_g.z() + 0.2;
 
-  if(ot->castRay(end, dir_ceil, p2_g))
-    query.z() = p2_g.z();
+//  if(ot->castRay(end, dir_ceil, p2_g))
+//  query.z() = p2_g.z();
 
 //  sleep(1);
 //  std::cout << p2 << std::endl;
